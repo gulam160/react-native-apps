@@ -3,21 +3,20 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { registerRootComponent } from "expo";
 import { useEffect, useState } from "react";
 import BottomTabNavigator from "./src/components/BottomTabNavigator";
-import { Onboarding } from "./src/screens";
+import { Authenticate, Onboarding } from "./src/screens";
 import { getItems } from "./src/utils/asyncStorage";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [isUserOnBoarded, setIsUserOnBoarded] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(true);
 
   useEffect(() => {
     async function checkIfUserIsOnboarded() {
       const value = await getItems("_isOnboarded_");
-      if (value === "YES") {
-        setIsUserOnBoarded(true);
-      } else {
-        setIsUserOnBoarded(false);
+      if (value === null) return;
+      if (value === "YES" && value !== null) {
+        setShowOnboarding(false);
       }
     }
     checkIfUserIsOnboarded();
@@ -26,13 +25,18 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {isUserOnBoarded && (
+        {showOnboarding && (
           <Stack.Screen
             name="Onboarding"
             component={Onboarding}
             options={{ headerShown: false }}
           />
         )}
+        <Stack.Screen
+          name="Authenticate"
+          component={Authenticate}
+          options={{ headerShown: false, animation: "slide_from_right" }}
+        />
         <Stack.Screen
           name="BottomNavigations"
           component={BottomTabNavigator}

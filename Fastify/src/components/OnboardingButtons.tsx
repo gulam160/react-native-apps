@@ -8,7 +8,7 @@ export const SkipButton = () => {
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate("Home");
+        navigation.navigate("Authenticate");
         setItems("_isOnboarded_", "YES");
       }}
       className="border border-[#f73c4f] rounded-md py-2 px-5 ml-5"
@@ -34,7 +34,7 @@ export const DoneButton = () => {
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate("Home");
+        navigation.navigate("Authenticate");
         setItems("_isOnboarded_", "YES");
       }}
       className="bg-[#f73c4f] rounded-md py-2 px-5 mr-5"

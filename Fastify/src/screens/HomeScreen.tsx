@@ -15,11 +15,6 @@ import { StatusBar } from "expo-status-bar";
 const HomeScreen = () => {
   const navigation: Navigation = useNavigation();
 
-  const handleReset = () => {
-    removeItems("_isOnboarded_");
-    navigation.push("Onboarding");
-  };
-
   return (
     <View>
       <StatusBar style="light" />
@@ -29,7 +24,7 @@ const HomeScreen = () => {
       >
         {/* Child-1 */}
         <View className="px-2 pb-6 flex-row justify-between items-center">
-          <TouchableOpacity onPress={handleReset}>
+          <TouchableOpacity>
             <ChevronLeftIcon size={24} color="rgb(243 244 246)" />
           </TouchableOpacity>
           <Text className="text-xl text-gray-100 font-semibold">
