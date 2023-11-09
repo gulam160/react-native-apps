@@ -1,9 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "../strore";
+import type { Elements } from "../../Types/DistanceResponse";
 
-const initialState = {
-  origin: { description: "", location: { lat: 0, lng: 0 } },
-  destination: { description: "", location: { lat: 0, lng: 0 } },
+export interface OrgAndDesType {
+  description: string;
+  location: { lat: number; lng: number };
+}
+
+interface MyInitialState {
+  origin: OrgAndDesType | null;
+  destination: OrgAndDesType | null;
+  travellTimeInformation: Elements | null;
+}
+
+const initialState: MyInitialState = {
+  origin: null,
+  destination: null,
   travellTimeInformation: null,
 };
 

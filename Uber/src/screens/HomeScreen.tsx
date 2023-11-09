@@ -1,10 +1,10 @@
-import { Image, View } from "react-native";
 import React from "react";
+import { Image, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "tailwind-react-native-classnames";
+import NavFaviorite from "../components/NavFaviorite";
 import NavOptions from "../components/NavOptions";
 import SearchOrigin from "../components/SearchOrigin";
-import NavFaviorite from "../components/NavFaviorite";
 
 const HomeScreen = () => {
   return (

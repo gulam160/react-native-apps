@@ -1,23 +1,9 @@
-import { FlatList, Text, View } from "react-native";
 import React from "react";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { FlatList, Text, View } from "react-native";
 import { Icon } from "react-native-elements";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import tw from "tailwind-react-native-classnames";
-
-const data = [
-  {
-    id: "123",
-    icon: "home",
-    location: "Home",
-    destination: "Code Street, London, UK",
-  },
-  {
-    id: "234",
-    icon: "briefcase",
-    location: "Work",
-    destination: "London Eye, London, UK",
-  },
-];
+import { navFavoriteData as data } from "../../constants/navFavoriteData";
 
 const NavFaviorite = () => {
   return (

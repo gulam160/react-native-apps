@@ -5,21 +5,7 @@ import { Icon } from "react-native-elements";
 import tw from "tailwind-react-native-classnames";
 import { selectOrigin } from "../../redux/slices/navSlice";
 import { useAppSelector } from "../../redux/strore";
-
-const data = [
-  {
-    id: "123",
-    title: "Get a ride",
-    image: require("../../assets/Ubercar.png"),
-    screen: "MapScreen",
-  },
-  {
-    id: "456",
-    title: "Order food",
-    image: require("../../assets/UberEats.png"),
-    screen: "EatsScreen",
-  },
-];
+import { navOptionData as data } from "../../constants/navOptionData";
 
 export interface Navigation {
   navigate: (routeName: string) => void;
@@ -28,9 +14,6 @@ export interface Navigation {
 const NavOptions = () => {
   const navigation: Navigation = useNavigation();
   const origin = useAppSelector(selectOrigin);
-  const {
-    location: { lat, lng },
-  } = origin;
 
   return (
     <FlatList
@@ -41,9 +24,9 @@ const NavOptions = () => {
         <TouchableOpacity
           style={[tw`p-4 bg-gray-100 m-2 w-40`, { height: 260 }]}
           onPress={() => navigation.navigate(item.screen)}
-          disabled={!lat && !lng}
+          disabled={!origin}
         >
-          <View style={tw`${!lat ? "opacity-20" : "opacity-100"}`}>
+          <View style={tw`${!origin ? "opacity-20" : "opacity-100"}`}>
             <Image
               source={item.image}
               style={{
