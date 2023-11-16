@@ -82,17 +82,20 @@ const Page = () => {
       ),
       headerRight: () => (
         <View style={styles.bar}>
-          <TouchableOpacity style={styles.roundButton} onPress={shareListing}>
+          <TouchableOpacity
+            style={[tw`shadow-md`, styles.roundButton]}
+            onPress={shareListing}
+          >
             <Ionicons name="share-outline" size={24} color={"#000"} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.roundButton}>
+          <TouchableOpacity style={[tw`shadow-md`, styles.roundButton]}>
             <Ionicons name="heart-outline" size={22} color={"#000"} />
           </TouchableOpacity>
         </View>
       ),
       headerLeft: () => (
         <TouchableOpacity
-          style={styles.roundButton}
+          style={[tw`shadow-md`, styles.roundButton]}
           onPress={() => navigation.goBack()}
         >
           <Ionicons name="chevron-back" size={24} color={"#000"} />

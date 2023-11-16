@@ -1,5 +1,4 @@
 import {
-  FlatList,
   Image,
   ListRenderItem,
   Text,
@@ -9,18 +8,32 @@ import {
 import type { ListingsInterface } from "@/interfaces/listing";
 import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import tw from "tailwind-react-native-classnames";
 import Animated, { FadeInLeft, FadeInRight } from "react-native-reanimated";
+import {
+  BottomSheetFlatList,
+  BottomSheetFlatListMethods,
+} from "@gorhom/bottom-sheet";
 
 interface ListingsProps {
   listings: ListingsInterface[];
   category: string;
+  refresh: number;
 }
 
-const Listings = ({ listings, category }: ListingsProps) => {
+const Listings = ({ listings, category, refresh }: ListingsProps) => {
   const [loading, setLoading] = useState(false);
-  const listRef = useRef<FlatList>(null);
+  const bottomSheetFlatListRef = useRef<BottomSheetFlatListMethods>(null);
+
+  useEffect(() => {
+    if (refresh) {
+      bottomSheetFlatListRef.current?.scrollToOffset({
+        offset: 0,
+        animated: true,
+      });
+    }
+  }, [refresh]);
 
   useEffect(() => {
     setLoading(true);
@@ -76,11 +89,18 @@ const Listings = ({ listings, category }: ListingsProps) => {
   );
 
   return (
-    <FlatList
+    <BottomSheetFlatList
       keyExtractor={(item) => item.id}
       data={loading ? [] : listings}
       renderItem={renderRow}
-      ref={listRef}
+      ref={bottomSheetFlatListRef}
+      ListHeaderComponent={
+        <Text
+          style={[tw`text-base text-center mt-2`, { fontFamily: "mon-sb" }]}
+        >
+          {listings.length} {category}
+        </Text>
+      }
     />
   );
 };
