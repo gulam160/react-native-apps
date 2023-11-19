@@ -56,7 +56,8 @@ const Layout = () => {
       <Tabs.Screen
         name="profile"
         options={{
-          tabBarLabel: "Inbox",
+          tabBarLabel: "Profile",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <UserCircleIcon color={color} size={size} />
           ),

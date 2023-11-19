@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { Text, TouchableOpacity, View, useColorScheme } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "tailwind-react-native-classnames";
+import { ToastProvider } from "react-native-toast-notifications";
 
 const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
@@ -67,7 +68,9 @@ export default function RootLayout() {
       publishableKey={CLERK_PUBLISHABLE_KEY!}
       tokenCache={tokenCache}
     >
-      <RootLayoutNav />
+      <ToastProvider offsetTop={50}>
+        <RootLayoutNav />
+      </ToastProvider>
     </ClerkProvider>
   );
 }

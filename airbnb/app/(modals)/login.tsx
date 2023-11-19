@@ -1,11 +1,5 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
-import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
 import { useWarmUpBrowser } from "@/hooks/useWarmUpBrowser";
 import tw from "tailwind-react-native-classnames";
 import { defaultStyle } from "@/Styles/defaultStyle";
@@ -13,6 +7,9 @@ import Colors from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import { useOAuth } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
+import Signupform from "@/components/Signupform";
+import LoginForm from "@/components/LoginForm";
+import Animated from "react-native-reanimated";
 
 enum Strategy {
   Google = "oauth_google",
@@ -22,6 +19,7 @@ enum Strategy {
 
 const Page = () => {
   useWarmUpBrowser();
+  const [toggleForm, setToggleForm] = useState<"Signup" | "Login">("Signup");
   const router = useRouter();
   const { startOAuthFlow: googleAuth } = useOAuth({ strategy: "oauth_google" });
   const { startOAuthFlow: appleAuth } = useOAuth({ strategy: "oauth_apple" });
@@ -38,8 +36,6 @@ const Page = () => {
 
     try {
       const { createdSessionId, setActive } = await selectedAuth();
-      console.log("createdSessionId", createdSessionId);
-
       if (createdSessionId) {
         setActive!({ session: createdSessionId });
         router.back();
@@ -49,19 +45,29 @@ const Page = () => {
     }
   };
 
+  const handleToggle = () => {
+    toggleForm === "Signup" ? setToggleForm("Login") : setToggleForm("Signup");
+  };
+
   return (
     <View style={tw`flex-1 bg-white p-6`}>
-      <TextInput
-        autoCapitalize="none"
-        placeholder="Email"
-        style={[defaultStyle.inputField, { marginVertical: 30 }]}
-      />
-      <TouchableOpacity style={defaultStyle.btn}>
-        <Text style={defaultStyle.btnText}>Continue</Text>
-      </TouchableOpacity>
-
+      {toggleForm === "Login" ? <LoginForm /> : <Signupform />}
+      <Animated.View
+        style={[tw`flex-row items-center justify-center mt-6`, { gap: 3 }]}
+      >
+        <Text style={{ fontFamily: "mon-sb", color: Colors.grey }}>
+          {toggleForm === "Login"
+            ? "Don't have an account?"
+            : "Already have an account?"}
+        </Text>
+        <TouchableOpacity onPress={handleToggle}>
+          <Text style={{ fontFamily: "mon-b", color: Colors.primary }}>
+            {toggleForm === "Login" ? "Sign Up" : "Login"}
+          </Text>
+        </TouchableOpacity>
+      </Animated.View>
       {/* Separator with __OR__ */}
-      <View style={[tw`flex-row items-center my-12`, { gap: 10 }]}>
+      <View style={[tw`flex-row items-center my-7`, { gap: 10 }]}>
         <View
           style={[
             tw`flex-1 border-b border-black`,
