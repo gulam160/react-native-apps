@@ -8,6 +8,7 @@ import { Text, TouchableOpacity, View, useColorScheme } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "tailwind-react-native-classnames";
 import { ToastProvider } from "react-native-toast-notifications";
+import BookingModalHeader from "@/components/BookingModalHeader";
 
 const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
@@ -117,22 +118,8 @@ function RootLayoutNav() {
         options={{
           presentation: "transparentModal",
           animation: "fade",
-          header: () => (
-            <SafeAreaView
-              style={tw`flex-row justify-center items-center border-b border-gray-200`}
-            >
-              <TouchableOpacity
-                onPress={() => router.back()}
-                style={[tw`absolute left-3 z-50`, { top: 50 }]}
-              >
-                <Ionicons name="close-outline" size={28} />
-              </TouchableOpacity>
-              <Text style={[tw`text-lg py-4`, { fontFamily: "mon-sb" }]}>
-                Bookings
-              </Text>
-              <View>{""}</View>
-            </SafeAreaView>
-          ),
+          headerTransparent: true,
+          header: () => <BookingModalHeader />,
         }}
       />
 
