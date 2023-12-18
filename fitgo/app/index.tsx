@@ -7,8 +7,11 @@ import {
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 import Animated, { FadeInDown, FadeOut } from "react-native-reanimated";
+import { useRouter } from "expo-router";
 
 const index = () => {
+  const router = useRouter();
+
   return (
     <View className="flex-1 flex justify-end">
       <StatusBar style="light" />
@@ -42,7 +45,10 @@ const index = () => {
         </Animated.View>
 
         <Animated.View entering={FadeInDown.delay(200).springify()}>
-          <TouchableOpacity className="bg-rose-500 flex items-center py-3 mx-auto w-full rounded-full border-2 border-neutral-200">
+          <TouchableOpacity
+            onPress={() => router.push("/home")}
+            className="bg-rose-500 flex items-center py-3 mx-auto w-full rounded-full border-2 border-neutral-200"
+          >
             <Text
               className="text-white"
               style={{ fontFamily: "mon-sb", fontSize: hp(3) }}
