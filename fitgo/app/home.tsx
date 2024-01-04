@@ -1,13 +1,11 @@
-import { View, Text, Image } from "react-native";
-import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { StatusBar } from "expo-status-bar";
-import {
-  heightPercentageToDP as hp,
-  widthPercentageToDP as wp,
-} from "react-native-responsive-screen";
-import { Ionicons } from "@expo/vector-icons";
+import BodyParts from "@/components/BodyParts";
 import ImageSlider from "@/components/ImageSlider";
+import { Ionicons } from "@expo/vector-icons";
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { Image, Text, View } from "react-native";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const home = () => {
   return (
@@ -42,6 +40,10 @@ const home = () => {
 
       <View className="">
         <ImageSlider />
+      </View>
+
+      <View className="flex-1">
+        <BodyParts />
       </View>
     </SafeAreaView>
   );

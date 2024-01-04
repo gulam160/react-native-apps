@@ -7,6 +7,10 @@ import {
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 
+interface RenderItems {
+  item: any;
+}
+
 const ImageSlider = () => {
   return (
     <Carousel
@@ -14,7 +18,7 @@ const ImageSlider = () => {
       loop={true}
       autoplay={true}
       hasParallaxImages={true}
-      renderItem={renderItem}
+      renderItem={({ item, index }) => <Items item={item} />}
       sliderWidth={wp(100)}
       firstItem={1}
       autoplayInterval={4000}
@@ -24,14 +28,14 @@ const ImageSlider = () => {
   );
 };
 
-const renderItem = ({ item }, parallaxProps) => (
+const Items: React.FC<RenderItems> = (props) => (
   <View style={{ width: wp(100) - 70, height: hp(25) }}>
     <ParallaxImage
-      source={item}
+      source={props.item}
       containerStyle={{ borderRadius: 30, flex: 1 }}
       style={{ resizeMode: "contain" }}
       parallaxFactor={1}
-      {...parallaxProps}
+      {...props}
     />
   </View>
 );
